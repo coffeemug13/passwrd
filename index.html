@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Application Styles -->
+    <!-- <link rel="stylesheet" href="resources/default.css"> -->
+    <!-- Bootstrap --->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <title>Testnote </title>
+
+</head>
+<body class="container">
+<div class="navbar navbar-default">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                data-target=".navbar-responsive-collapse">
+            <span class="icon-bar"></span> <span class="icon-bar"></span> <span
+                class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">My Secure Passwords</a>
+    </div>
+</div>
+<!-- Section to display all notes -->
+<section id="generate">
+    <p>To generate your Passwords for your Websites you must first set your Name and Masterpassword</p>
+    <form role="form" autocomplete="on">
+        <div class="form-group">
+            <label for="mMaster">Masterkey</label>
+            <input type="text" class="form-control" id="mMaster" placeholder="your super secret master passsword">
+        </div>
+        <div class="form-group">
+            <label for="mUsername">Username</label>
+            <input type="text" class="form-control" id="mUsername" autocomplete="on" placeholder="your user name">
+        </div>
+        <div class="form-group">
+            <label for="mDomain">domain</label>
+            <input type="text" class="form-control" id="mDomain" autocomplete="off"
+                   placeholder="e.g. heise.de or google.com" autocomplete="off">
+        </div>
+        <div class="form-group" style="display:None" id="tCounter">
+            <label for="mCounter">Counter</label>
+            <input type="number" class="form-control" id="mCounter" value="1" min="1" max="99">
+        </div>
+        <div class="form-group" style="display:None" id="tLength">
+            <label for="mLength">Length</label>
+            <input type="number" class="form-control" id="mLength" value="10" min="1" max="32">
+        </div>
+        <div class="form-group" style="display:None" id="tPattern">
+            <label for="mPattern">Password Type</label>
+            <select class="form-control" id="mPattern">
+                <option value="0" selected="">A-Za-z0-9!@#$%^&*()</option>
+                <option value="1">PIN</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <button type="button" class="btn btn-default" onclick="toggle_options()">
+                <span class="glyphicon glyphicon-chevron-down" aria-hidden="true" id="bOptions"></span> Options
+            </button>
+            <button type="button" class="btn btn-primary" onclick="generate()">Generate</button>
+        </div>
+        <div class="form-group" id="result" style="display:None">
+            <label for="passwrd">Domain password</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="passwrd" autocomplete="off" disabled
+                       style="font-family: Monospace">
+                <span class="input-group-btn">
+                            <button class="btn btn-default" type="button"
+                                    onclick="copy_to_clipboard()">Copy Clipboard</button>
+                        </span>
+            </div>
+        </div>
+    </form>
+</section>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossorigin="anonymous"></script>
+<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/hogan.js/3.0.0/hogan.js"></script>
+<script src="https://cdn.rawgit.com/chrisveness/crypto/6073a47/sha256.js"></script>
+
+<script type="text/javascript">
+var template = "AEIOUaeiouBCDFGHJKLMNPQRSTVWXYZbcdfghjklmnpqrstvwxyz0123456789!@#$%^&*()"
+
+
+function calculate(master, username, domain, counter, length, template) {
+    var key = master + ":" + domain.toLowerCase() + ":" + username + ":" + counter
+    var hashed_key = Sha256.hash(key, { outFormat: 'hex' })
+    console.log("hashed key:" + hashed_key);
+    length *= 2 // duplicate length because we are using 2 char
+    result = ""
+    for (i = 0; i < hashed_key.length ; i=i+2) {
+        if (i==length) {
+            break
+        }
+        k = parseInt(hashed_key[i] + hashed_key[i+1], 16)
+        kk = k % template.length
+        console.log(k + ":"+kk + ":" + template[kk] )
+        result += template[kk]
+    }
+    console.log("generated password: " + result)
+    return result
+ }
+
+
+function generate() {
+    var master = $("#mMaster").val();
+    var username = $("#mUsername").val();
+    var domain = $("#mDomain").val();
+    var counter = $("#mCounter").val();
+    var length = $("#mLength").val();
+    pwd = calculate(master, username, domain, counter, length, template)
+    $("#result").show();
+    $("#passwrd").val(pwd);
+   }
+
+function toggle_options() {
+    if($('#tLength').css('display') == 'none') {
+        $("#bOptions").removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up")
+    } else {
+        $("#bOptions").removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down")
+    }
+    $("#tCounter").toggle()
+    $("#tLength").toggle()
+    $("#tPattern").toggle()
+
+}
+
+function copy_to_clipboard() {
+  window.prompt("Copy to clipboard: Ctrl+C, Enter", $("#passwrd").val());
+}
+
+</script>
+</body>
+</html>
