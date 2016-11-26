@@ -138,11 +138,10 @@ function toggle_options() {
 function copy_to_clipboard() {
   window.prompt("Copy to clipboard: Ctrl+C, Enter", $("#passwrd").val());
 }
-    
-    $('#mMaster').hover(function () {
-    $('.password').attr('type', 'text');
-}, function () {
-    $('.password').attr('type', 'password');
+// populate the document
+$(document).ready(function () {
+    $('#mMaster').hover(function () {$('#mMaster').attr('type', 'text');}, 
+                        function () {$('#mMaster').attr('type', 'password');});
 });
 
 </script>
