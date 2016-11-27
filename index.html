@@ -1,44 +1,64 @@
 <!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- http://bootswatch.com/cerulean/ -->
-    <link rel="stylesheet" href="css/bootstrap-cerulean.css">
-    <link rel="icon" href="icon2.png">
+<html lang="en">
+  <head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
 
     <style>
-        .container > section {
-            margin-left: 15px;
-            margin-right: 15px;
-        }
+    .bg {
+        background-image: url(background1.jpg);
+        background-position: 0% 25%;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    .icon {
+      width: 16px;
+      height: 16px;
+      margin-bottom:2px
+    }
+    .display-3 {
+    font-size: 4rem;
+    font-weight: 400;
+    }
+    .lead {
+    font-size: 1.25rem;
+    font-weight: 400;
+    }
+    .jumbotron {
+        padding: 1rem 0rem;
+        margin-bottom: 1rem;
+    }
     </style>
-    <title>Passwrd</title>
-
-</head>
-<body class="container">
-    <div class="navbar navbar-default ">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="index.html"><img src="icon2_small.png" style="display: inline-block;"> PASSWRD - don't panic</a>
-        </div>
+  </head>
+  <body>
+      <div class="jumbotron jumbotron-fluid bg">
+      <div class="container">
+        <h1 class="display-3">PASSWRD</h1>
+        <p class="lead">Promise, it's really super easy. If you don't know what to do, <a href="help.html">here</a>  you get further instructions</p>
+        <p>
+            <a class="btn btn-primary btn-lg" href="help.html" role="button">Learn more</a>
+        </p>
+      </div>
     </div>
-    <!-- Section to display all notes -->
-    <section id="generate">
-        <p>Promise, it's really super easy. If you don't know what to do, <a href="help.html">here</a> page you get further instructions</p>
+    <div class="container">
         <form role="form" autocomplete="off">
             <div class="form-group">
                 <label for="mMaster">Masterkey</label>
-                <input type="password" class="form-control" id="mMaster" autocomplete="off" autocapitalize=off placeholder="your super secret master password">
+                <input type="password" class="form-control" id="mMaster" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="your super secret master password">
             </div>
             <div class="form-group">
                 <label for="mUsername">Username</label>
-                <input type="text" class="form-control" id="mUsername" autocapitalize=off placeholder="e.g. testuser or testuser@gmail.com">
+                <input type="text" class="form-control" id="mUsername" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="e.g. testuser or testuser@gmail.com">
             </div>
             <div class="form-group">
                 <label for="mDomain">Domain</label>
-                <input type="text" class="form-control" id="mDomain" autocomplete="off" autocapitalize=off
-                       placeholder="e.g. heise.de or google.com" autocomplete="off">
+                <input type="text" class="form-control" id="mDomain" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+                       placeholder="e.g. heise.de or google.com">
             </div>
             <div class="form-group" style="display:None" id="tCounter">
                 <label for="mCounter">Counter</label>
@@ -56,8 +76,9 @@
                 </select>
             </div>
             <div class="form-group">
-                <button type="button" class="btn btn-default" onclick="toggle_options()">
-                    <span class="glyphicon glyphicon-chevron-down" aria-hidden="true" id="bOptions"></span> Options
+                <button type="button" class="btn btn-secondary clearfix " onclick="toggle_options()">
+                    <img src="svg/chevron-bottom.svg" alt="expand" class="icon pull-left" id="bOptions"/>
+                    Options
                 </button>
                 <button type="button" class="btn btn-primary" onclick="generate()">Generate</button>
             </div>
@@ -67,20 +88,20 @@
                     <input type="text" class="form-control" id="passwrd" autocomplete="off" disabled
                            style="font-family: Monospace">
                     <span class="input-group-btn">
-                                <button class="btn btn-default" type="button"
-                                        onclick="copy_to_clipboard()">Copy Clipboard</button>
-                            </span>
+                        <button class="btn btn-info" type="button" onclick="copy_to_clipboard()">
+                            Copy Clipboard
+                        </button>
+                    </span>
                 </div>
             </div>
         </form>
-    </section>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/hogan.js/3.0.0/hogan.js"></script>
-    <script src="js/sha256.js"></script>
+    </div>
 
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+      <script src="js/sha256.js"></script>
     <script type="text/javascript">
     var template = "AEIOUaeiouBCDFGHJKLMNPQRSTVWXYZbcdfghjklmnpqrstvwxyz0123456789!@#$%^&*()"
 
@@ -107,20 +128,28 @@
 
     function generate() {
         var master = $("#mMaster").val();
+        if (master=="") {
+            $("#mMaster").addClass("bg-warning text-white")
+            $("#result").hide();
+            return
+        } else {
+            $("#mMaster").removeClass("bg-warning text-white")
+        }
         var username = $("#mUsername").val();
         var domain = $("#mDomain").val();
         var counter = $("#mCounter").val();
         var length = $("#mLength").val();
         pwd = calculate(master, username, domain, counter, length, template)
-        $("#result").show();
         $("#passwrd").val(pwd);
+        $("#result").show();
+        $("html, body").animate({ scrollTop: $(document).height() }, "slow");
        }
 
     function toggle_options() {
         if($('#tLength').css('display') == 'none') {
-            $("#bOptions").removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up")
+            $("#bOptions").attr("src","svg/chevron-top.svg");
         } else {
-            $("#bOptions").removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down")
+            $("#bOptions").attr("src","svg/chevron-bottom.svg");
         }
         $("#tCounter").toggle()
         $("#tLength").toggle()
@@ -138,5 +167,6 @@
     });
 
     </script>
-</body>
+
+  </body>
 </html>
