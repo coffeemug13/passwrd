@@ -161,6 +161,18 @@
 
     }
 
+    function reset() {
+        //window.alert("purge")
+        $("#mMaster").val('');
+        $("#mUsername").val('')
+        $("#mDomain").val('');
+        $("#passwrd").val('');
+        $("#mCounter").val('1');
+        $("#mLength").val('10');
+        $("#mPattern").val(0);
+        $("#result").hide();
+    }
+
     function copy_to_clipboard() {
       window.prompt("Copy to clipboard: Ctrl+C, Enter", $("#passwrd").val());
     }
@@ -168,6 +180,9 @@
     $(document).ready(function () {
         $('#mMaster').hover(function () {$('#mMaster').attr('type', 'text');},
                             function () {$('#mMaster').attr('type', 'password');});
+        $( "#mMaster" ).click(function() {
+            window.setTimeout(reset, 5000);
+        });
     });
 
     </script>
