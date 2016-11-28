@@ -1,27 +1,51 @@
 <!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="css/bootstrap-cerulean.css">
+<html lang="en">
+  <head>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
 
     <style>
-        .container > section {
-            margin-left: 15px;
-            margin-right: 15px;
-        }
+    .bg {
+        background-image: url(background1.jpg);
+        background-position: 0% 25%;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    .icon {
+      width: 16px;
+      height: 16px;
+      margin-bottom:2px
+    }
+    .display-3 {
+    font-size: 4rem;
+    font-weight: 400;
+    }
+    .lead {
+    font-size: 1.25rem;
+    font-weight: 400;
+    }
+    .jumbotron {
+        padding: 1rem 0rem;
+        margin-bottom: 1rem;
+    }
     </style>
-    <title>Passwrd - help</title>
-
-</head>
-<body class="container">
-    <div class="navbar navbar-default ">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="index.html">PASSWRD - help page</a>
-        </div>
-    </div>
-    <section>
+  </head>
+  <body>
+      <div class="jumbotron jumbotron-fluid bg">
+      <div class="container">
+        <h1 class="display-3">PASSWRD</h1>
+        <p class="lead">Promise, it's really super easy. If you don't know what to do, <a href="help.html">here</a>  you get further instructions</p>
+        <p>
+            <a class="btn btn-primary btn-lg" href="help.html" role="button">Learn more</a>
+        </p>
+      </div>
+      </div>
+    <div class="container">
         <h2>Quick reference</h2>
         <p>First of all, don't panic. You only have to remember ONE password for all your logins, that's
             your <b>master password</b>! Whatever you fill in the form of PASSWRD stays on your computer. Nothing
@@ -38,21 +62,19 @@
             <li>photos.google.com -> google.com</li>
             <li>de.wikipedia.org -> wikipedia.org</li>
         </ul>
-        You can of course fill in the full hostname, e.g. www.google.com, but I wouldn't recommend that.</p>
+        <p>You can of course fill in the full hostname, e.g. www.google.com, but I wouldn't recommend that.</p>
         <p>Now hit enter. That's it. Copy to clipboard, opens a small dialog where you can copy the generated
         password to the clipboard</p>
         <h2>Concept</h2>
         <p>That ...</p>
         <h2>Credits</h2>
         <p>Credtis to following projects..</p>
-    </section>
+    </div>
 
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/hogan.js/3.0.0/hogan.js"></script>
-
-
-
-</body>
+    <!-- jQuery first, then Tether, then Bootstrap JS. -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous"></script>
+  
+  </body>
 </html>
