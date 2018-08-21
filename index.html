@@ -210,7 +210,7 @@
 			tmp = hashCode(tmp)
 			tmp = tmp % 65535 // limit to small hash number
 			if (tmp < 0) tmp *= -1
-			$("#mCheck").text(tmp.toString(16).toUpperCase());
+			$("#mCheck").text(tmp.toString(16));
         });
     });
 
