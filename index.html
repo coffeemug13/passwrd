@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" integrity="sha384-AysaV+vQoT3kOAXZkl02PThvDr8HYKPZhNT5h/CXfBThSRXQ6jW5DO2ekP5ViFdi" crossorigin="anonymous">
+    <!-- Bootstrap CSS  -->
+   	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
     <style>
     .bg {
@@ -50,10 +50,13 @@
             <div class="form-group">
                 <label for="mMaster">Masterkey</label>
                 <div class="input-group">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">show</div>
-                  </div>
                   <input type="password" class="form-control" id="mMaster" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="your super secret master password">
+				  <div class="input-group-append">
+                    <div class="input-group-text" id="mCheck">check</div>
+                  </div>
+				  <div class="input-group-append">
+                    <div class="input-group-text" id="tMaster">show</div>
+                  </div>
                 </div>
             </div>
             <div class="form-group">
@@ -166,6 +169,17 @@
 
     }
 
+	function hashCode(data) {
+	  var hash = 0, i, chr;
+	  if (data.length === 0) return hash;
+	  for (i = 0; i < data.length; i++) {
+		chr   = data.charCodeAt(i);
+		hash  = ((hash << 5) - hash) + chr;
+		hash |= 0; // Convert to 32bit integer
+	  }
+	  return hash;
+	};
+	
     function reset() {
         //window.alert("purge")
         $("#mMaster").val('');
@@ -183,10 +197,17 @@
     }
     // populate the document
     $(document).ready(function () {
-        //$('#mMaster').hover(function () {$('#mMaster').attr('type', 'text');},
-        //                    function () {$('#mMaster').attr('type', 'password');});
+        $('#tMaster').hover(function () {$('#mMaster').attr('type', 'text');},
+                            function () {$('#mMaster').attr('type', 'password');});
         $( "#mMaster" ).click(function() {
             window.setTimeout(reset, 600000);
+        });
+		$( "#mMaster" ).keyup(function() {
+			tmp = $("#mMaster").val();
+			tmp = hashCode(tmp)
+			tmp = tmp % 65535 // limit to small hash number
+			if (tmp < 0) tmp *= -1
+			$("#mCheck").text(tmp.toString(16));
         });
     });
 
