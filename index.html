@@ -55,7 +55,7 @@
                     <div class="input-group-text" id="mCheck" title="remember the hashcode of masterpassword" >hash</div>
                   </div>
 				  <div class="input-group-append">
-                    <div class="input-group-text" id="tMaster"  title="show masterpassword">toggle</div>
+                    <div class="input-group-text" id="mToggle"  title="show masterpassword">toggle</div>
                   </div>
                 </div>
             </div>
@@ -68,19 +68,26 @@
                 <input type="text" class="form-control" id="mDomain" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
                        placeholder="e.g. heise.de or google.com">
             </div>
-            <div class="form-group" style="display:None" id="tCounter">
+            <div class="form-group" style="display:None" id="dCounter">
                 <label for="mCounter">Counter</label>
                 <input type="number" class="form-control" id="mCounter" value="1" min="1" max="99">
             </div>
-            <div class="form-group" style="display:None" id="tLength">
+            <div class="form-group" style="display:None" id="dLength">
                 <label for="mLength">Length</label>
-                <input type="number" class="form-control" id="mLength" value="10" min="4" max="32">
+                <input type="number" class="form-control" id="mLength" value="12" min="4" max="32">
             </div>
-            <div class="form-group" style="display:None" id="tPattern">
-                <label for="mPattern">Password Type</label>
+			<div class="form-group" style="display:None" id="dSep">
+                <label for="mPattern">Password Format</label>
+                <select class="form-control" id="mSep">
+					<option value="3" selected="">Apple style passwords with dashes</option>
+                    <option value="0" >Just a bunch of char</option>
+                </select>
+            </div>
+            <div class="form-group" style="display:None" id="dPattern">
+                <label for="mPattern">Allowed Characters</label>
                 <select class="form-control" id="mPattern">
-                    <option value="0" selected="">A-Za-z0-9!@#$%^&*()</option>
-                    <option value="1">A-Za-z0-9</option>
+                    <option value="0">A-Za-z0-9!@#$%&*?</option>
+                    <option value="1" selected="">A-Za-z0-9</option>
                     <option value="2">PIN</option>
                 </select>
             </div>
@@ -115,17 +122,17 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="js/sha256.js"></script>
     <script type="text/javascript">
-    var template = ["AEIOUaeiouBCDFGHJKLMNPQRSTVWXYZbcdfghjklmnpqrstvwxyz0123456789!@#$%^&*()",
-                    "AEIOUaeiouBCDFGHJKLMNPQRSTVWXYZbcdfghjklmnpqrstvwxyz0123456789",
+    var template = ["ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*?abcdefghjklmnopqrstuvwxyz0123456789!@#$%&*?",
+                    "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghjklmnopqrstuvwxyz0123456789",
                     "0123456789"];
 
 
-    function calculate(master, username, domain, counter, length, template) {
+    function calculate(master, username, domain, counter, length, template, sep) {
         var key = master + ":" + domain.toLowerCase() + ":" + username.toLowerCase() + ":" + counter
         var hashed_key = Sha256.hash(key, { outFormat: 'hex' })
         console.log("hashed key:" + hashed_key);
         length *= 2 // duplicate length because we are using 2 char
-        result = ""
+        var result = ""
         for (i = 0; i < hashed_key.length ; i=i+2) {
             if (i==length) {
                 break
@@ -135,6 +142,10 @@
             console.log(k + ":"+kk + ":" + template[kk] )
             result += template[kk]
         }
+		if (sep > 0) {
+			var tmp = result.match(new RegExp('.{1,' + sep + '}', 'g'));
+			result = tmp.join('-')
+		}
         console.log("generated password: " + result)
         return result
      }
@@ -153,22 +164,24 @@
         var domain = $("#mDomain").val();
         var counter = $("#mCounter").val();
         var length = $("#mLength").val();
-        var pattern = $("#mPattern").val();
-        pwd = calculate(master, username, domain, counter, length, template[parseInt(pattern)])
+        var pattern = parseInt($('#mPattern').val());
+	var sep = parseInt($('#mSep').val());
+        pwd = calculate(master, username, domain, counter, length, template[pattern], sep)
         $("#passwrd").val(pwd);
         $("#result").show();
         $("html, body").animate({ scrollTop: $(document).height() }, "slow");
        }
 
     function toggle_options() {
-        if($('#tLength').css('display') == 'none') {
+        if($('#mLength').css('display') == 'none') {
             $("#bOptions").attr("src","svg/chevron-top.svg");
         } else {
             $("#bOptions").attr("src","svg/chevron-bottom.svg");
         }
-        $("#tCounter").toggle()
-        $("#tLength").toggle()
-        $("#tPattern").toggle()
+        $("#dCounter").toggle();
+        $("#dLength").toggle();
+        $("#dPattern").toggle();
+		$("#dSep").toggle();
 
     }
 
@@ -192,6 +205,7 @@
         $("#mCounter").val('1');
         $("#mLength").val('10');
         $("#mPattern").val(0);
+	$("#mSep").val(4);
         $("#result").hide();
     }
 
@@ -200,7 +214,7 @@
     }
     // populate the document
     $(document).ready(function () {
-        $('#tMaster').hover(function () {$('#mMaster').attr('type', 'text');},
+        $('#mToggle').hover(function () {$('#mMaster').attr('type', 'text');},
                             function () {$('#mMaster').attr('type', 'password');});
         $( "#mMaster" ).click(function() {
             window.setTimeout(reset, 600000);
