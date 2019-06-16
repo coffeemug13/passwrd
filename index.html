@@ -122,7 +122,6 @@
     var template = ["ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*?abcdefghjklmnopqrstuvwxyz0123456789!@#$%&*?",
                     "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghjklmnopqrstuvwxyz0123456789",
                     "0123456789"];
-    var enter = false;
 
     function calculate(master, username, domain, counter, length, template, sep) {
         var key = master + ":" + domain.toLowerCase() + ":" + username.toLowerCase() + ":" + counter
@@ -224,16 +223,17 @@
 		$("#mCheck").text(tmp.toString(16));
         });
 	$('#mDomain').keypress(function(event){
-	    var keycode = (event.keyCode ? event.keyCode : event.which);
-	    if(keycode == '13'){
-		if (enter == false){
-			enter = true;
-			generate();
-		} else {
-			copy_to_clipboard();
-		}
-	   };
-});
+		var keycode = (event.keyCode ? event.keyCode : event.which);
+		alert(enter);
+		if(keycode == '13'){
+			if (enter == false){
+				enter = true;
+				generate();
+			} else {
+				copy_to_clipboard();
+			}
+		};
+	});
     });
 
     </script>
