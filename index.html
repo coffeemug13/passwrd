@@ -210,6 +210,7 @@
       window.prompt("Copy to clipboard: Ctrl+C, Enter", $("#passwrd").val());
     }
     // populate the document
+    var enter = false
     $(document).ready(function () {
         $('#mToggle').hover(function () {$('#mMaster').attr('type', 'text');},
                             function () {$('#mMaster').attr('type', 'password');});
@@ -226,7 +227,12 @@
 	$('#mDomain').keypress(function(event){
 	    var keycode = (event.keyCode ? event.keyCode : event.which);
 	    if(keycode == '13'){
-		generate(); 
+		generate();
+		if (enter== true){
+			copy_to_clipboard()
+		} else {
+			enter = true
+		}
 	   };
 });
     });
