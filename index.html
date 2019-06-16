@@ -224,10 +224,10 @@
         });
 	$('#mDomain').keypress(function(event){
 		var keycode = (event.keyCode ? event.keyCode : event.which);
-		alert(enter);
+		alert(window.enter);
 		if(keycode == '13'){
-			if (enter == false){
-				enter = true;
+			if (window.enter == false){
+				window.enter = true;
 				generate();
 			} else {
 				copy_to_clipboard();
