@@ -227,9 +227,9 @@
 	$('#mDomain').keypress(function(event){
 		var keycode = (event.keyCode ? event.keyCode : event.which);
 		if(keycode == '13'){
+			generate();
 			if (window.enter == false){
 				window.enter = true;
-				generate();
 			} else {
 				copy_to_clipboard();
 			}
