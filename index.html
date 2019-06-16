@@ -223,9 +223,9 @@
 		if (tmp < 0) tmp *= -1
 		$("#mCheck").text(tmp.toString(16));
         });
+	// optimization for keyboard usage. First Enter generates Code, Second Enter opens Dialog for easier copy
 	$('#mDomain').keypress(function(event){
 		var keycode = (event.keyCode ? event.keyCode : event.which);
-		alert(window.enter);
 		if(keycode == '13'){
 			if (window.enter == false){
 				window.enter = true;
