@@ -216,13 +216,19 @@
         $( "#mMaster" ).click(function() {
             window.setTimeout(reset, 600000);
         });
-		$( "#mMaster" ).keyup(function() {
-			tmp = $("#mMaster").val();
-			tmp = hashCode(tmp)
-			tmp = tmp % 65535 // limit to small hash number
-			if (tmp < 0) tmp *= -1
-			$("#mCheck").text(tmp.toString(16));
+	$( "#mMaster" ).keyup(function() {
+		tmp = $("#mMaster").val();
+		tmp = hashCode(tmp)
+		tmp = tmp % 65535 // limit to small hash number
+		if (tmp < 0) tmp *= -1
+		$("#mCheck").text(tmp.toString(16));
         });
+	$('#mUsername').keypress(function(event){
+	    var keycode = (event.keyCode ? event.keyCode : event.which);
+	    if(keycode == '13'){
+		alert('You pressed a "enter" key in textbox'); 
+	   };
+});
     });
 
     </script>
